@@ -1,7 +1,5 @@
-
 const iniciarJuego = document.querySelector('#iniciar-juego');
 const nuevaPalabra = document.querySelector('#nueva-palabra');
-const nuevoJuego = document.querySelector('#nuevo-juego');
 
 let palabras = ['alura', 'oracle', 'html', 'css', 'javascript', 'hangman', 'abel'];
 
@@ -10,89 +8,107 @@ nuevaPalabra.addEventListener('click', (e) => {
     e.preventDefault();
     const text = document.querySelector('#input-nueva-palabra');
     palabras = [...palabras, (text.value)];
-    console.log(palabras);
     document.getElementById('input-nueva-palabra').value = '';
 })
 
-iniciarJuego.addEventListener('click', () => {
+const jugar = () => {
 
-    let intentos = 0;
-    let gano = false;
-    let game = [];
+    iniciarJuego.addEventListener('click', () => {
 
-    const palabraSecreta = palabras[Math.floor(Math.random() * palabras.length)];
-    espaciosPalabra(palabraSecreta.length);
+        let intentos = 0;
+        let gano = false;
+        let game = [];
 
-    const keyGame = (key) => {
-        const secretKey = palabraSecreta.includes(key);
+        const palabraSecreta = palabras[Math.floor(Math.random() * palabras.length)];
+        espaciosPalabra(palabraSecreta.length);
 
-        if (!secretKey) {
-            intentos++;
-        } else {
-            dibujarLetras(palabraSecreta, key);
-            secret = [...palabraSecreta];
-            game = [...game, key];
+        const keyGame = (key) => {
+            const secretKey = palabraSecreta.includes(key);
 
-            let secretWord = secret.filter((item, idx) => {
-                return secret.indexOf(item) === idx;
-            })
+            if (!secretKey) {
+                intentos++;
+            } else {
+                dibujarLetras(palabraSecreta, key);
+                secret = [...palabraSecreta];
+                game = [...game, key];
 
-            secretWord.sort();
-            game.sort();
+                let secretWord = secret.filter((item, idx) => {
+                    return secret.indexOf(item) === idx;
+                })
 
-            if (secretWord.every((ele, ix) => { return ele === game[ix] })) {
-                gano = true;
+                secretWord.sort();
+                game.sort();
+
+                if (secretWord.every((ele, ix) => { return ele === game[ix] })) {
+                    gano = true;
+                }
+            }
+
+            if (gano) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Ganaste  :)',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    html: `<a href="#logo">
+                    <button class="btn" onclick="nuevoJuego()">
+                    NUEVO JUEGO
+                    </button></a>`,
+                });
+            }
+
+            switch (intentos) {
+                case 1:
+                    dibujarLargo();
+                    break;
+                case 2:
+                    dibujarHorizontal();
+                    break;
+                case 3:
+                    dibujarCorto();
+                    break;
+                case 4:
+                    dibujarCabeza();
+                    break;
+                case 5:
+                    dibujarCuerpo();
+                    break;
+                case 6:
+                    dibujarPiernaIzquierda();
+                    break;
+                case 7:
+                    dibujarPiernaDerecha();
+                    break;
+                case 8:
+                    dibujarBrazoIzquierdo();
+                    break;
+                case 9:
+                    dibujarBrazoDerecho();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Perdiste  :(',
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                        html: `<a href="#logo">
+                        <button class="btn" onclick="nuevoJuego()">
+                        NUEVO JUEGO
+                        </button></a>`,
+                    });
+                    break;
+                default:
+                    break;
             }
         }
 
-        if (gano) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Ganaste!  :)',
-                showConfirmButton: true,
-            })
-        }
+        window.addEventListener('keypress', ({ key }) => { keyGame(key) }, false);
 
-        switch (intentos) {
-            case 1:
-                dibujarLargo();
-                break;
-            case 2:
-                dibujarHorizontal();
-                break;
-            case 3:
-                dibujarCorto();
-                break;
-            case 4:
-                dibujarCabeza();
-                break;
-            case 5:
-                dibujarCuerpo();
-                break;
-            case 6:
-                dibujarPiernaIzquierda();
-                break;
-            case 7:
-                dibujarPiernaDerecha();
-                break;
-            case 8:
-                dibujarBrazoIzquierdo();
-                break;
-            case 9:
-                dibujarBrazoDerecho();
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Perdiste!  :(',
-                    showConfirmButton: true,
-                })
-                break;
-            default:
-                break;
-        }
-    }
+    })
+}
 
-    window.addEventListener('keypress', ({ key }) => { keyGame(key) }, false);
+jugar();
 
-})
-// window.removeEventListener('click', () => { });
-window.removeEventListener('keypress', () => { keyGame }, true);
+const nuevoJuego = () => {
+    setTimeout(() => {
+        location.reload();
+    }, 500);
+}

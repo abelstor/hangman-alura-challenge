@@ -87,23 +87,6 @@ body {
   font-size: 15px;
   width: 240px;
 }
-#nuevo-juego {
-  width: 170px;
-  height: 70px;
-  padding: 24px;
-  cursor: pointer;
-  font-size: 14px;
-  color: #e5e5e5;
-  background-color: #0a6e71;
-  border-radius: 24px;
-  border: 3px solid;
-  font-weight: bold;
-  transition: font-size, width 0.3s ease;
-}
-#nuevo-juego:hover {
-  font-size: 17px;
-  width: 200px;
-}
 
 .titulo {
   padding: 15px;
@@ -111,16 +94,23 @@ body {
   margin: auto;
 }
 
-/* .btn {
-  border: 0;
+.btn {
+  cursor: pointer;
+  border: 2px solid;
+  width: 200px;
+  height: 60px;
   color: white;
   font-weight: bold;
-  background-color: blue;
+  background-color: rgb(76, 0, 255);
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 0.5em;
-} */
+}
+.btn:hover {
+  font-size: 15px;
+  width: 180px;
+}
 
 .text-input {
   border-radius: 0.5em;

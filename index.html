@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="logo__content">
+    <div class="logo__content" id="logo">
       <img src="./assets/Logo.png" alt="logo" />
     </div>
     <h1 class="title">Hangman Game</h1>
     <div class="main__container">
       <div class="box__container">
         <a href="#ahorcado">
-          <button class="btn" id="iniciar-juego">Iniciar Juego</button>
+          <button id="iniciar-juego">Iniciar Juego</button>
         </a>
         <input
           class="text-input"
@@ -23,12 +23,11 @@
           id="input-nueva-palabra"
           placeholder="Escriba una nueva palabra"
         />
-        <button class="btn" id="nueva-palabra">Agregar nueva palabra</button>
+        <button id="nueva-palabra">Agregar nueva palabra</button>
       </div>
     </div>
     <div style="text-align: center">
       <canvas id="ahorcado" width="1200px" height="680px"></canvas>
-      <button class="btn" id="nuevo-juego">Nuevo Juego</button>
     </div>
 
     <script type="text/javascript" src="canvas.js"></script>
